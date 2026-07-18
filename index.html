@@ -206,21 +206,6 @@ section{padding:96px 40px;}
 /* PRICE */
 .price-section{background:var(--alt);}
 .price-lead{font-size:13px;color:var(--gray);margin-top:-36px;margin-bottom:44px;letter-spacing:0.03em;}
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:20px;}
-.price-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:44px 32px;position:relative;box-shadow:0 2px 10px rgba(34,31,27,0.04);}
-.price-card.featured{border-color:var(--accent);box-shadow:0 6px 22px rgba(46,111,104,0.14);}
-.price-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent);border-radius:10px 10px 0 0;}
-.price-badge{display:inline-block;background:var(--accent);border-radius:100px;padding:5px 14px;font-size:10px;letter-spacing:0.18em;color:#fff;margin-bottom:16px;font-weight:600;}
-.price-area{font-size:11px;letter-spacing:0.18em;color:var(--lgray);margin-bottom:10px;font-weight:500;}
-.price-name{font-size:16px;font-weight:700;margin-bottom:8px;}
-.price-detail{font-size:12px;color:var(--gray);line-height:1.8;margin-bottom:26px;}
-.price-amount{font-family:'Inter',sans-serif;font-size:44px;font-weight:700;line-height:1;color:var(--ink);letter-spacing:-0.01em;font-feature-settings:"tnum";}
-.price-amount small{font-size:15px;font-family:'Noto Sans JP',sans-serif;font-weight:500;margin-left:4px;color:var(--gray);}
-.price-note{font-size:11px;color:var(--lgray);margin-top:10px;}
-.price-cta{display:block;margin-top:26px;text-align:center;background:var(--accent);color:#fff;font-size:13px;font-weight:700;letter-spacing:0.06em;padding:14px 0;border-radius:6px;transition:background .2s;}
-.price-cta:hover{background:var(--accent-dark);}
-.price-cta.sub{background:transparent;border:1.5px solid var(--border);color:var(--ink);font-weight:500;}
-.price-cta.sub:hover{background:var(--bg);border-color:var(--gray);}
 
 /* COMPARE */
 .compare{background:var(--surface);}
@@ -237,6 +222,24 @@ section{padding:96px 40px;}
 .compare-table tbody tr:hover td.own{background:rgba(46,111,104,0.1);}
 .chk{color:var(--accent-dark);font-weight:700;}
 .compare-note{font-size:10.5px;color:var(--lgray);margin-top:16px;line-height:1.8;}
+
+/* PRICE TABLE */
+.price-table-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden;overflow-x:auto;-webkit-overflow-scrolling:touch;box-shadow:0 2px 10px rgba(34,31,27,0.04);background:var(--surface);}
+.price-table{width:100%;min-width:520px;border-collapse:collapse;}
+.price-table th,.price-table td{padding:18px 22px;text-align:left;border-bottom:1px solid var(--border);}
+.price-table thead th{font-size:11px;letter-spacing:0.1em;color:var(--gray);font-weight:600;background:var(--bg);}
+.price-table tbody tr:last-child td{border-bottom:none;}
+.price-table tbody tr:hover td{background:var(--bg);}
+.price-table td.pt-menu{font-size:13.5px;font-weight:700;color:var(--ink);}
+.price-table td.pt-menu span{display:block;font-size:11.5px;font-weight:500;color:var(--gray);margin-top:3px;letter-spacing:0.02em;}
+.price-table td.pt-time{font-size:12.5px;color:var(--gray);white-space:nowrap;}
+.price-table th.pt-col-new,.price-table th.pt-col-repeat{text-align:center;}
+.price-table td.pt-price-cell{text-align:center;font-size:16px;font-weight:700;color:var(--ink);font-family:'Inter',sans-serif;white-space:nowrap;}
+.price-table td.pt-price-cell small{font-size:11px;font-weight:500;color:var(--gray);margin-left:2px;font-family:'Noto Sans JP',sans-serif;}
+.price-table td.pt-price-cell.pt-highlight{color:var(--accent-dark);}
+.price-table td.pt-price-shared{text-align:center;font-size:14px;font-weight:700;color:var(--ink);font-family:'Inter',sans-serif;}
+.price-table td.pt-price-shared span{display:block;font-size:10px;font-weight:500;color:var(--gray);font-family:'Noto Sans JP',sans-serif;margin-top:2px;}
+.price-tag{display:inline-block;background:var(--accent);color:#fff;font-size:9.5px;letter-spacing:0.08em;font-weight:700;padding:3px 9px;border-radius:100px;margin-left:8px;vertical-align:middle;}
 
 /* FAQ */
 .faq{background:var(--alt);}
@@ -337,7 +340,6 @@ footer{background:var(--surface);padding:40px;display:flex;justify-content:space
   .areas-grid{grid-template-columns:1fr 1fr;}
   .nose-inner{grid-template-columns:1fr;}
   .nose-image{min-height:320px;}
-  .price-grid{grid-template-columns:1fr;}
   .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
   .gal-item.big{grid-column:span 2;}
   .flow-grid{grid-template-columns:1fr 1fr;}
@@ -380,8 +382,12 @@ footer{background:var(--surface);padding:40px;display:flex;justify-content:space
   .acc-val{font-size:13px;}
   .map-copy{padding:22px 18px 24px;}
   .map-box .map-title{font-size:34px;}
-  .price-card{padding:34px 24px;}
   .compare-table th,.compare-table td{padding:14px 12px;font-size:12px;}
+  .price-table th,.price-table td{padding:13px 12px;}
+  .price-table td.pt-menu{font-size:12.5px;}
+  .price-table td.pt-menu span:not(.price-tag){font-size:10.5px;}
+  .price-table td.pt-price-cell{font-size:14px;}
+  .price-table td.pt-price-shared{font-size:13px;}
   .ad-offer{padding:22px 18px;}
   .ad-offer-inner{grid-template-columns:1fr;}
   .ad-offer-main,.ad-offer-item{padding:20px 18px;}
@@ -422,7 +428,11 @@ footer{background:var(--surface);padding:40px;display:flex;justify-content:space
     "name": "脱毛メニュー",
     "itemListElement": [
       {"@type":"Offer","name":"部分脱毛 1箇所 20分","price":"3480","priceCurrency":"JPY"},
-      {"@type":"Offer","name":"初回限定 全身脱毛 100分","price":"9480","priceCurrency":"JPY"},
+      {"@type":"Offer","name":"部分脱毛(VIO) 1箇所 20分","price":"4480","priceCurrency":"JPY"},
+      {"@type":"Offer","name":"初回限定 全身脱毛(顔、VIO込み) 100分","price":"9480","priceCurrency":"JPY"},
+      {"@type":"Offer","name":"全身脱毛(顔、VIO込み) 2回目以降","price":"14800","priceCurrency":"JPY"},
+      {"@type":"Offer","name":"全身脱毛(顔、VIO除く) 新規","price":"7780","priceCurrency":"JPY"},
+      {"@type":"Offer","name":"全身脱毛(顔、VIO除く) 2回目以降","price":"12800","priceCurrency":"JPY"},
       {"@type":"Offer","name":"鼻毛脱毛","price":"3480","priceCurrency":"JPY"}
     ]
   },
@@ -662,34 +672,51 @@ footer{background:var(--surface);padding:40px;display:flex;justify-content:space
   <span class="sec-label">Menu &amp; Pricing</span>
   <h2 class="sec-title en">Plans<small>料金プラン</small></h2>
   <p class="price-lead">町田で脱毛を始めたい方へ。すべて都度払い、契約・回数券・ローンは一切不要。気になる部位だけでも、全身まとめてもLINEから予約できます。</p>
-  <div class="price-grid">
-    <div class="price-card">
-      <p class="price-area">部分脱毛</p>
-      <p class="price-name">1箇所 / 20分</p>
-      <p class="price-detail">VIO以外の気になる部位<br>顔・腕・脚・胸・背中など</p>
-      <p class="price-amount">3,480<small>円〜</small></p>
-      <p class="price-note">税込</p>
-      <a class="price-cta sub" href="https://lin.ee/zMTM0r4">LINEで部位を相談する</a>
-    </div>
-    <div class="price-card featured">
-      <p class="price-badge">いちばん人気</p>
-      <p class="price-area">全身脱毛 / 初回限定</p>
-      <p class="price-name">100分フルケア</p>
-      <p class="price-detail">全身をまとめてケア<br>初めての方に最もおすすめ</p>
-      <p class="price-amount">9,480<small>円</small></p>
-      <p class="price-note">税込 · 初回限定価格（2回目以降は通常料金）</p>
-      <a class="price-cta" href="https://lin.ee/zMTM0r4">LINEで初回枠を確認する</a>
-    </div>
-    <div class="price-card">
-      <p class="price-area">鼻毛脱毛</p>
-      <p class="price-name">希少メニュー</p>
-      <p class="price-detail">入口から2cmを丁寧照射<br>顔全体の清潔感アップ</p>
-      <p class="price-amount">3,480<small>円</small></p>
-      <p class="price-note">税込</p>
-      <a class="price-cta sub" href="https://lin.ee/zMTM0r4">鼻毛脱毛を予約する</a>
-    </div>
+  <div class="price-table-wrap">
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>メニュー</th>
+          <th>所要時間 / 回数</th>
+          <th class="pt-col-new">新規</th>
+          <th class="pt-col-repeat">2回目以降</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pt-menu">全身脱毛(顔、VIO込み)<span class="price-tag">人気No.1</span></td>
+          <td class="pt-time">100分</td>
+          <td class="pt-price-cell pt-highlight">9,480<small>円</small></td>
+          <td class="pt-price-cell">14,800<small>円</small></td>
+        </tr>
+        <tr>
+          <td class="pt-menu">全身脱毛(顔、VIO除く)</td>
+          <td class="pt-time">80分</td>
+          <td class="pt-price-cell">7,780<small>円</small></td>
+          <td class="pt-price-cell">12,800<small>円</small></td>
+        </tr>
+        <tr>
+          <td class="pt-menu">部分脱毛<span>顔・腕・脚・胸・背中など</span></td>
+          <td class="pt-time">1箇所 / 20分</td>
+          <td class="pt-price-shared" colspan="2">3,480<small>円〜</small><span>新規・2回目以降とも同額</span></td>
+        </tr>
+        <tr>
+          <td class="pt-menu">部分脱毛(VIO)</td>
+          <td class="pt-time">1箇所 / 20分</td>
+          <td class="pt-price-shared" colspan="2">4,480<small>円</small><span>新規・2回目以降とも同額</span></td>
+        </tr>
+        <tr>
+          <td class="pt-menu">鼻毛脱毛<span>希少メニュー・入口から2cm照射</span></td>
+          <td class="pt-time">10分</td>
+          <td class="pt-price-shared" colspan="2">3,480<small>円</small><span>新規・2回目以降とも同額</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <p style="font-size:12px;color:var(--lgray);margin-top:12px;">※ 詳細料金・その他プランはLINEにてお問い合わせください。無理なコース契約のご案内はありません。</p>
+  <div style="text-align:center;margin-top:32px;">
+    <a class="btn-primary" href="https://lin.ee/zMTM0r4">LINEで空き状況・料金を相談する</a>
+  </div>
+  <p style="font-size:12px;color:var(--lgray);margin-top:16px;text-align:center;">※ 詳細料金・その他プランはLINEにてお問い合わせください。無理なコース契約のご案内はありません。</p>
 </section>
 
 <!-- COMPARE -->
@@ -715,7 +742,7 @@ footer{background:var(--surface);padding:40px;display:flex;justify-content:space
         </tr>
         <tr>
           <td class="rl">全身の目安料金</td>
-          <td class="own"><strong>初回100分 9,480円</strong><br>2回目以降も都度払いOK</td>
+          <td class="own"><strong>初回100分 9,480円</strong><br>2回目以降14,800円・都度払いOK</td>
           <td>コース総額 数十万円〜<br>（都度は割高になりやすい）</td>
           <td>1回 約2万円前後〜</td>
         </tr>
