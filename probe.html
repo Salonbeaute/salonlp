@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>ボーテ｜Google接続確認</title>
+  <meta name="description" content="ボーテの予約移行に向けた接続確認ページ。予約や顧客データは保存しません。">
+  <style>
+    :root { --bg: #f4f7f5; --fg: #203d34; --accent: #28604e; --surface: #fff; --border: #aabcb3; }
+    * { box-sizing: border-box; } body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.7 system-ui,sans-serif; }
+    main { max-width: 600px; margin: auto; padding: 28px 20px; } h1 { font-size: 26px; } label { display: block; margin-top: 24px; }
+    input,button { width: 100%; font: inherit; min-height: 48px; border-radius: 6px; padding: 12px; }
+    input { border: 1px solid var(--border); background: var(--surface); color: var(--fg); }
+    button { margin-top: 16px; border: 0; background: var(--accent); color: var(--surface); cursor: pointer; }
+    button:disabled { opacity: .6; cursor: wait; } output { display: block; margin-top: 24px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  </style>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js" defer></script>
+</head>
+<body><main>
+  <p>都度払い脱毛サロン ボーテ</p><h1>Google接続確認</h1>
+  <label for="endpoint">Googleで公開したURL</label>
+  <input id="endpoint" type="url" autocomplete="off" placeholder="https://script.google.com/macros/s/…/exec">
+  <button id="connection" type="button">接続を確認</button>
+  <button id="line" type="button">LINE登録を確認</button>
+  <output id="status" aria-live="polite"></output>
+</main>
+<script>
+  const status = document.getElementById('status');
+  const input = document.getElementById('endpoint');
+  const connection = document.getElementById('connection');
+  const line = document.getElementById('line');
+  // Store only the public deployment URL to retain it across LINE login, never a token.
+  try { input.value = sessionStorage.getItem('beauteProbeUrl') || ''; } catch (_) {}
+  function endpoint() {
+    const url = new URL(input.value.trim());
+    if (url.protocol !== 'https:' || url.hostname !== 'script.google.com' || !/^\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url.pathname) || url.search || url.hash) throw new Error('Googleで公開した /exec のURLを入力してください。');
+    try { sessionStorage.setItem('beauteProbeUrl', url.href); } catch (_) {}
+    return url.href;
+  }
+  async function request(url, body) {
+    const response = await fetch(url, body ? { method: 'POST', credentials: 'omit', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify(body) } : { credentials: 'omit', redirect: 'follow' });
+    if (!response.ok) throw new Error('Googleへの接続を確認できませんでした。');
+    return response.json();
+  }
+  async function run(task) {
+    connection.disabled = line.disabled = true;
+    status.textContent = '確認中…';
+    try { await task(); } catch (error) { status.textContent = error instanceof TypeError ? '接続を確認できませんでした。Googleの公開範囲・URL・ブラウザー間の通信制限を確認する必要があります。' : (error.message || '確認できませんでした。'); }
+    finally { connection.disabled = line.disabled = false; }
+  }
+  connection.addEventListener('click', () => run(async () => {
+    const result = await request(endpoint());
+    if (result.ok !== true || result.probe !== 'beaute-google-v1') throw new Error('検証用の公開URLではありません。');
+    status.textContent = 'Googleへの接続を確認できました。';
+  }));
+  line.addEventListener('click', () => run(async () => {
+    const url = endpoint();
+    if (!window.liff) throw new Error('LINEの読み込みを確認できませんでした。');
+    await liff.init({ liffId: '2012235758-EyEUzD50' });
+    if (!liff.isLoggedIn()) {
+      // Avoid the editor iframe; this probe must be hosted directly on GitHub Pages.
+      liff.login({ redirectUri: location.origin + location.pathname });
+      return;
+    }
+    const accessToken = liff.getAccessToken();
+    if (!accessToken) throw new Error('LINEにもう一度ログインしてください。');
+    const result = await request(url, { action: 'verifyLine', accessToken });
+    if (result.ok !== true) throw new Error('Google側でLINE登録を確認できませんでした。');
+    status.textContent = result.friend === true ? 'Google側でLINEの友だち登録を確認できました。' : 'ボーテのLINE公式アカウントを友だち追加してください。';
+  }));
+</script></body></html>
